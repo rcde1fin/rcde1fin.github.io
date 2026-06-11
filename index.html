@@ -1,245 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Mobile First Layout</title>
 
+  <!-- Google Font: Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
-  <title>Ralph C Delfin</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    /* =========================
-       DESKTOP DEFAULT STYLES
-       ========================= */
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
+      font-family: "Roboto", Arial, sans-serif;
+      line-height: 1.6;
+      color: #202124;
+      background: #f6f8fb;
     }
 
-    header {
-      background: #1e3a5f;
-      color: white;
-      padding: 120px 20px 120px 20px;
-      text-align: center;
+    .letter-bullet {
+      padding: 5px 10px;
+      border-radius: 200px;
+      background-color: #0b57d0;
+      color:#ffffff;
     }
 
-    h1 {
+    .material-symbols-outlined {
+      /*color: #0b57d0;*/
+      color: #ffffff;
       font-size: 4em;
+      position: relative;
+      top: 10px; /* adjust between -2px and +2px */
     }
 
-    nav {
+    ul>li {
+      margin-left: 20px;
+    }
+
+    .card-container {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      background: #2d4d73;
-      padding: 15px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 60px;
-      background: white;
-    }
-
-    .hero-text {
-      width: 50%;
-    }
-
-    .hero-image {
-      /* display: flex;
-      align-items: center; */
-      width: 40%;
-      height: 250px;
-      background: #ccc;
-      border-radius: 10px;
-    }
-
-    .cards {
-      display: flex;
-      gap: 20px;
-      padding: 40px;
+      justify-content: space-around;
+      gap: 1rem;
+      padding: 1rem;
     }
 
     .card {
-      flex: 1;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    footer {
+      flex: 1 1 calc((100% - 4rem) / 5);
+      background-color: #5A7DBA;
+      border-radius: 5px;
       text-align: center;
-      padding: 20px;
-      background: #1e3a5f;
-      color: white;
+      min-height: 100px;
+      max-width: 125px;
+      color: #ffffff;
+      padding: 25px;
     }
 
-    /* =========================
-       TABLET
-       max-width: 1024px
-       ========================= */
-
-    @media (max-width: 1024px) {
-
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .hero-text,
-      .hero-image {
-        width: 100%;
-      }
-
-      .hero-image {
-        margin-top: 20px;
-      }
-
-      .cards {
-        flex-wrap: wrap;
-      }
-
+    @media (max-width: 1000px) {
       .card {
-        min-width: 45%;
+        flex-basis: calc((100% - 2rem) / 3);
       }
     }
-
-    /* =========================
-       MOBILE
-       max-width: 768px
-       ========================= */
 
     @media (max-width: 768px) {
-
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .hero {
-        padding: 30px 20px;
-      }
-
-      .cards {
-        flex-direction: column;
-        padding: 20px;
-      }
-
       .card {
-        width: 100%;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      p {
-        font-size: 16px;
+        flex-basis: calc((100% - 1rem) / 2);
       }
     }
 
-    
-  .roboto-light {
-    font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-variation-settings:
-      "wdth" 100;
-  }
+    @media (max-width: 480px) {
+      .card {
+        flex-basis: 100%;
+      }
+      max-width: 125px;
+    }
 
-  .chevron {
-    height: 50px;
-    border: 25px 50% 0 50%;
-    border-top-color: #1e3a5f;
-    border-right-color: #ffffff;
-    border-left-color: #ffffff;
-  }
+    /*=========*/
 
+    .scroll-spy {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(255,255,255,1);
+      z-index: 1000;
+    }
+
+    .scroll-spy__bar {
+      width: 0%;
+      height: 100%;
+      background: #0b57d0;
+      transition: width 0.08s linear;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 5px;
+      z-index: 999;
+      background: #ffffff;
+      border-bottom: 1px solid #dfe3ea;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .site-nav__inner {
+      width: min(100%, 1200px);
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .site-nav__brand {
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: #0b57d0;
+      text-decoration: none;
+    }
+
+    .site-nav__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+    }
+
+    .site-nav__links a {
+      display: inline-block;
+      padding: 0.5rem 0.75rem;
+      /*color: #202124;*/
+      color: #999999;
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 6px;
+    }
+
+    .site-nav__links a:hover,
+    .site-nav__links a:focus {
+      background: #eef3fd;
+      color: #0b57d0;
+    }
+
+    .banner {
+      background:
+        linear-gradient(rgba(11, 87, 208, 0.82), rgba(20, 96, 174, 0.82)),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      padding: clamp(4rem, 12vw, 8rem) 1rem;
+    }
+
+    .banner__inner {
+      width: min(100%, 1200px);
+      margin: 0 auto;
+    }
+
+    .banner h1 {
+      max-width: 760px;
+      font-size: clamp(2.25rem, 8vw, 5rem);
+      line-height: 1;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+
+    .banner p {
+      max-width: 620px;
+      font-size: clamp(1rem, 3vw, 1.35rem);
+    }
+
+    .page-layout {
+      width: min(100%, 1200px);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.25rem 1rem;
+    }
+
+    .right-column {
+      order: 1;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #dfe3ea;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .main-content {
+      order: 2;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #dfe3ea;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .section {
+      /*padding: 2rem 0;*/
+      /*border-bottom: 1px solid #e6e9ef;*/
+      padding-bottom: 1em;
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section h2,
+    .right-column h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+      color: #0b57d0;
+      margin-top: .5em;
+      margin-bottom: 1.25em;
+    }
+
+    .section p,
+    .right-column p {
+      margin-bottom: 1rem;
+    }
+
+    .right-column ul {
+      padding-left: 1.25rem;
+    }
+
+    .right-column li {
+      margin-bottom: 0.6rem;
+    }
+
+    .site-footer {
+      background: #202124;
+      color: #ffffff;
+      margin-top: 2rem;
+    }
+
+    .site-footer__inner {
+      width: min(100%, 1200px);
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .site-footer p {
+      opacity: 0.9;
+    }
+
+    @media (min-width: 768px) {
+      .site-nav__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .page-layout {
+        flex-direction: row;
+        align-items: stretch;
+      }
+
+      .main-content {
+        order: 1;
+        width: 75%;
+      }
+
+      .right-column {
+        order: 2;
+        width: 25%;
+        align-self: stretch;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <div class="scroll-spy" aria-hidden="true">
+    <div class="scroll-spy__bar" id="scrollSpyBar"></div>
+  </div>
 
-  <header>
-    <h1 class="roboto-light"><span style="1.1em">R</span>alph <span style="1.1em">C</span> <span style="1.1em">D</span>elfin
-  </header>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="site-nav__inner">
+      <a href="#" class="site-nav__brand">Ralph C. Delfin</a>
 
-  <nav>
-    <!-- <a href="#">Home</a>
-    <a href="#">Services</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a> -->
+      <ul class="site-nav__links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#readme">Readme</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <section class=”chevron-container”>
-    <div class=”chevron”>
-    </div>
-    <div class=”chevron-blank”>
-    </div>
-  </section>
-
-  <section class="hero">
-    <div class="hero-text">
-      <h2>Professional Summary</h2>
+  <header class="banner">
+    <div class="banner__inner">
+      <h1>Mobile First Responsive Webpage</h1>
       <p>
-        Results-oriented software developer and systems analyst with over a decade of experience in information technology, 
-        process automation, and design. Adept at defining and documenting functional, technical, and integration specifications 
-        that align technology with organizational goals. Experience inn systems design, UI/UX design, and vendor evaluation within 
-        international research environments. Recognized for bridging business and IT teams to deliver efficient and sustainable 
-        digital solutions.
+        A fluid HTML5 layout with sticky navigation, a responsive right column,
+        a banner section, main content, footer, and scroll progress indicator.
       </p>
     </div>
+  </header>
 
-    <div class="hero-image">
-      <!-- E: ralph.c.delfin(at)gmail.com
-      T: +63 917 322 9540
-      A: 10432 Lopez Ave., Batong Malake, Los Baños, Laguna 4030 Philippines -->
+  <div class="page-layout">
+    <aside class="right-column" aria-label="Sidebar">
+      <section class="section">
+        <h2>Reach out</h2>
+        <p>
+          <span class="letter-bullet">E</span> ralph.c.delfin@gmail.com
+        </p>
+        <p>
+          <span class="letter-bullet">T</span> +63 917 322 9540
+        </p>
+        <p>
+          <span class="letter-bullet">A</span> Los Baños, Laguna
+          4030
+          PH
+        </p>
+      </section>
+      <section class="section">
+        <h2>Education</h2>
+        <p>
+          University of the Philippines
+        </p>
+      </section>
+    </aside>
+
+    <main class="main-content">
+      <section class="section" id="overview">
+        <h2>Overview</h2>
+        <p>
+          Results-oriented Software Developer and Systems Analyst with over a decade of
+          experience in information technology, process automation, and design. Adept at
+          defining and documenting functional, technical, and integration specifications that
+          align technology with organizational goals. Experienced in systems design, UI/UX
+          design, and vendor evaluation within international research environments. Recognized
+          for bridging business and IT teams to deliver efficient and sustainable digital solutions.
+        </p>
+      </section>
+
+      <section class="section" id="experience">
+        <h2>Experience</h2>
+        <p>
+          <h3>Junior Specialist Business Engineering - Management Information Systems</h3>
+          International Rice Research Institute (IRRI), 2018–2026
+          <p>
+            <ul>
+              <li>Design and implement automation and integration solutions to improve
+              operational efficiency and data consistency.</li>
+              <li>Collaborate with HR and Finance teams to gather business requirements and
+              translate them into technical specifications.</li>
+              <li>Develop and manage API-based integrations between internal systems and
+              third-party platforms.</li>
+              <li>Support testing, documentation, and deployment of ERP and automation
+              projects.</li>
+              <li>Design and develop both internal and external facing web presences</li>
+              <li>Web app development</li>
+              <li>Participate in vendor evaluations and technical assessments for enterprise
+              systems.</li>
+            </ul>
+          </p>
+        </p>
+        <p>
+          <h3>National Consultant – Human Resources and Organizational Development (HROD)</h3>
+          International Rice Research Institute (IRRI), 2011–2018
+          <p>
+            <ul>
+              <li>Designed, developed, and maintained the HROD web presence, improving
+              internal communication and service delivery.</li>
+              <li>Participated in the screening, selection, and implementation of the Applicant
+              Tracking System (ATS).</li>
+              <li>Defined functional and technical requirements for HR systems in coordination
+              with IT and HR teams.</li>
+              <li>Contributed to the digital transformation of HR workflows and data
+              management processes.</li>
+              <li>Supported employee engagement and organizational development activities.</li>
+              <li>Web presence development in Joomla platform</li>
+            </ul>
+          </p>
+        </p>
+      </section>
+
+      <section class="section" id="skills">
+        <h2>Skills</h2>
+        <div class="card-container">
+          <div class="card">
+            <span class="material-symbols-outlined">
+              design_services
+            </span><br><br>
+            Web
+          </div>
+          <div class="card">
+            <span class="material-symbols-outlined">
+              api
+            </span><br><br>
+            APIs
+          </div>
+          <div class="card">
+            <span class="material-symbols-outlined">
+              draw
+            </span><br><br>
+            Graphics
+          </div>
+          <div class="card">
+            <span class="material-symbols-outlined">
+              user_attributes
+            </span><br><br>
+            UI/UX
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="readme">
+        <h2>Readme</h2>
+        <p>
+          This is a demo single-page fluid webpage showing a mobile-first responsive webpage. It uses HTML, CSS, and JavaScript. It references Google Fonts and Google Meterail Design icons.
+        </p>
+        <p>
+          If you want, you can inspect element, get the code, and replace the cvontent woth your own. YOu don't even have to give me credit. But thanks if you do.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>&copy; 2026 Ralph C. Delfin. All rights reserved.</p>
     </div>
-  </section>
-
-  <section class="cards">
-
-    <div class="card animate__zoomIn">
-      <h3>Email</h3>
-      <p>ralph.c.delfin(at)gmail.com</p>
-    </div>
-
-    <div class="card animate__zoomIn">
-      <h3>Telephone</h3>
-      <p>+63 917 322 9540</p>
-    </div>
-
-    <div class="card animate__zoomIn">
-      <h3>Address</h3>
-      <p>10432 Lopez Ave., Batong Malake, Los Baños, Laguna 4030 Philippines</p>
-    </div>
-
-  </section>
-
-  <footer>
-    &copy; 2026 rcdelfin
   </footer>
 
+  <script>
+    const scrollSpyBar = document.getElementById("scrollSpyBar");
+
+    function updateScrollSpy() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const documentHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const scrollPercent =
+        documentHeight > 0 ? (scrollTop / documentHeight) * 100 : 0;
+
+      scrollSpyBar.style.width = `${scrollPercent}%`;
+    }
+
+    window.addEventListener("scroll", updateScrollSpy);
+    window.addEventListener("resize", updateScrollSpy);
+    updateScrollSpy();
+  </script>
 </body>
 </html>
-
-
